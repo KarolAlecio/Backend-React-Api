@@ -1,22 +1,25 @@
 const express = require("express");
-const morgan = require("morgan")
+const morgan = require("morgan");
 const app = express();
-const register = require("./controllers/register")
-const login = require("./controllers/login")
-const updateUsers = require("./controllers/updateUsers")
-const getUsers = require("./controllers/getUsers")
+const register = require("./controllers/register");
+const login = require("./controllers/login");
+const updateUsers = require("./controllers/updateUsers");
+const getUsers = require("./controllers/getUsers");
+const { getAllUsers } = require("./db");
 
 app.use(morgan("dev"));
+app.use(express.json());
 
-const users=[];
+app.get("/users", (req, res) => {
+  res.json({ users: getAllUsers() });
+});
 //registre
-app.post("/register",register)
+app.post("/register", register);
 //login
-app.post("/login",login)
+app.post("/login", login);
 //update user
-app.put("/user/:id",updateUsers)
+app.put("/user/:id", updateUsers);
 //get user
-app.get("/getUser",getUsers)
-
+app.get("/getUser", getUsers);
 
 module.exports = app;
