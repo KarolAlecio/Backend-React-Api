@@ -9,7 +9,7 @@ const sequelize= new Sequelize( postgresConfig.name, postgresConfig.user, postgr
 });
 
 const modelDefiners = [
-    require("../src/models/User")
+    require("./models/Users")
 ]
 modelDefiners.forEach((model) => model(sequelize))
 

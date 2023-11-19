@@ -2,7 +2,7 @@ const app = require("./app");
 const { serverConfig } = require("./config");
 const { db } = require("./sequelize");
 
-db.sync()
+db.sync({ force: false })
   .then(() => {
     console.log("Conentando Base de Datos");
     app.listen(serverConfig.port, () => {

@@ -3,7 +3,7 @@ const {DataTypes}= require( "sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "User", {
+    "Users", {
     id: {
         type: DataTypes.UUID,
         defaultValue: Sequelize.UUIDV4,
@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         defaultValue:"",
     },
-    emai: {
+    email: {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false,

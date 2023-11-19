@@ -1,11 +1,16 @@
-
 const validator = require("validator");
-const { User } = require("../sequelize");
+const { Users } = require("../sequelize");
 
-const register = (req, res) => {
+const createUsers = (email, password) => {
+  return {
+    email,
+    password,
+  };
+};
+
+
+const register = async (req, res) => {
   const { email, password } = req.body;
-
-  const newUser = createUser(email, password);
 
   if (!email || !password) {
     return res.json({ message: "Porfavor Ingresa un Email y una contraseña." });
@@ -30,15 +35,17 @@ const register = (req, res) => {
     });
   }
 
-  const serchEmail = User.findOne({ where: { email } });
-  if (!serchEmail) {
+
+  const serchEmail = await Users.findOne({ where: { email } });
+  if (serchEmail) {
     return res.json({ message: "Usuario ya Existente" });
   }
-  const newUsers = User.create({
-    email,
+  const newUser = await Users.create({
+    email, 
     password,
   });
-  res.json({ message: "Usuario creado exitosamente", user: newUser });
-  res.status(500).json({ message: "Algo salio mal" });
+
+
+  res.status(201).json({ message: "Usuario creado exitosamente", Users: newUser });
 };
 module.exports = register;
