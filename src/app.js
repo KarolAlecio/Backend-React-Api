@@ -3,23 +3,21 @@ const morgan = require("morgan");
 const app = express();
 const register = require("./controllers/register");
 const login = require("./controllers/login");
-const updateUsers = require("./controllers/updateUsers");
 const getUsers = require("./controllers/getUsers");
-const { getAllUsers } = require("./db");
+const updateUsers = require("./controllers/updateUsers");
+const getAllUsers = require("./controllers/getAllUsers");
 
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.get("/users", (req, res) => {
-  res.json({ users: getAllUsers() });
-});
+app.get("/Users", getAllUsers);
 //registre
 app.post("/register", register);
 //login
 app.post("/login", login);
 //update user
-app.put("/user/:id", updateUsers);
+app.put("/users/:id", updateUsers);
 //get user
-app.get("/getUser", getUsers);
+app.get("/users/:id", getUsers);
 
 module.exports = app;

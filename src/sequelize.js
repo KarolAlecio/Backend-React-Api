@@ -1,20 +1,21 @@
 const { Sequelize } = require("sequelize");
-const { postgresConfig } = require("./config")
+const { postgresConfig } = require("./config");
 
-const sequelize= new Sequelize( postgresConfig.name, postgresConfig.user, postgresConfig.password, {
-     host: postgresConfig.host,
+const sequelize = new Sequelize(
+  postgresConfig.name,
+  postgresConfig.user,
+  postgresConfig.password,
+  {
+    host: postgresConfig.host,
     port: postgresConfig.port,
     dialect: "postgres",
+  }
+);
 
-});
+const modelDefiners = [require("./models/Users")];
+modelDefiners.forEach((model) => model(sequelize));
 
-const modelDefiners = [
-    require("./models/Users")
-]
-modelDefiners.forEach((model) => model(sequelize))
-
-module.exports={
-    ...sequelize.models,
-    db: sequelize,
-
-}
+module.exports = {
+  ...sequelize.models,
+  db: sequelize,
+};
